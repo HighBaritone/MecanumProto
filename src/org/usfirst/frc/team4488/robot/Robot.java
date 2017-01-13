@@ -20,9 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	AHRS gyro;
+	Drive drive;
 	Joystick xbox;
-	RobotDrive drive;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -30,12 +29,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		xbox = new Joystick(0);
-        gyro = new AHRS(SPI.Port.kMXP);
-        Talon FrontRight = new Talon(RobotMap.FrontRightMotor);
-        Talon FrontLeft = new Talon(RobotMap.FrontLeftMotor);
-        Talon BackRight = new Talon(RobotMap.BackRightMotor);
-        Talon BackLeft = new Talon(RobotMap.BackLeftMotor);
-        drive = new RobotDrive(FrontLeft, BackLeft, FrontRight, BackRight);
+        drive = new Drive();
 		
 	}
 
@@ -69,7 +63,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		drive.mecanumDrive_Cartesian(xbox.getRawAxis(1), xbox.getRawAxis(2), xbox.getRawAxis(4), gyro.getYaw());
+		drive.teleopDrive(xbox);
 	}
 
 	/**
